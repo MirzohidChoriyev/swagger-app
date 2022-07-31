@@ -4,28 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-public class Shop{
+public class Month {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private Integer month_number;
     private String name;
-    private double income;
-    private double damage;
-    private String address;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User seller;
 }
-
-
-
-
-
-
-

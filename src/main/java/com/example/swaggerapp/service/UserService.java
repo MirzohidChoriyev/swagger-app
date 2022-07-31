@@ -1,6 +1,5 @@
 package com.example.swaggerapp.service;
 
-import com.example.swaggerapp.entity.Role;
 import com.example.swaggerapp.entity.User;
 import com.example.swaggerapp.enums.UserStatus;
 import com.example.swaggerapp.payload.ApiResponse;
@@ -29,15 +28,8 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setFullname(userDto.getFullname());
         user.setRoles(userDto.getRoles());
-
-        String strings = "";
-        if(userDto.getRoles() != null){
-            for (Role role : userDto.getRoles()) {
-                strings += role.getName() + " ";
-            }
-            user.setRole(strings);
-        }
         user.setStatus(UserStatus.valueOf("ACTIVE"));
+        user.setShop_id(userDto.getShop_id());
         userRepository.save(user);
         return new ApiResponse("Save user", true, user);
     }
@@ -45,7 +37,6 @@ public class UserService {
     public Boolean checkExistUsername(String username){
         return userRepository.existsByUsername(username);
     }
-
 
     public ApiResponse edit(User userDto, Integer id) {
         Optional<User> user = userRepository.findById(id);
@@ -57,14 +48,6 @@ public class UserService {
         user.get().setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.get().setFullname(userDto.getFullname());
         user.get().setRoles(userDto.getRoles());
-
-        String strings = "";
-        if (userDto.getRoles() != null) {
-            for (Role role : userDto.getRoles()) {
-                strings += role.getName() + " ";
-            }
-            user.get().setRole(strings);
-        }
 
         user.get().setStatus(UserStatus.valueOf("ACTIVE"));
         userRepository.save(user.get());
@@ -94,5 +77,21 @@ public class UserService {
             return new ApiResponse("Ushbu id: " + username + " li foydalanuvchi mavjud emas", false);
         }
         return new ApiResponse("User id: " + username, true, user);
+    }
+
+    public boolean existUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public ApiResponse getByUser(Integer id) {
+        User user = userRepository.findByIdNativeQuery(id);
+        return new ApiResponse("Current user", true, user);
+    }
+
+    public ApiResponse loginEdit(User userDto, Integer id) {
+        User user = userRepository.findByIdNativeQuery(id);
+        user.setUsername(userDto.getUsername());
+        userRepository.save(user);
+        return new ApiResponse("Edit user", true, user);
     }
 }

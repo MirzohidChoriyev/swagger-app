@@ -9,6 +9,8 @@ import com.example.swaggerapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShopService {
     @Autowired
@@ -20,13 +22,15 @@ public class ShopService {
     public ApiResponse save(ShopDto shopDto) {
         User seller_user = userRepository.findByIdNativeQuery(shopDto.getSeller_id());
         Shop shop = new Shop();
-
-        shop.setActive(shopDto.isActive());
         shop.setName(shopDto.getName());
         shop.setAddress(shopDto.getAddress());
-        shop.setDescription(shopDto.getDescription());
         shop.setSeller(seller_user);
         shopRepository.save(shop);
         return new ApiResponse("Shop user save", true, shop);
+    }
+
+    public ApiResponse getAll(){
+        List<Shop> shops = shopRepository.findAll();
+        return new ApiResponse("Get all", true, shops);
     }
 }

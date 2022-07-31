@@ -4,7 +4,6 @@ import com.example.swaggerapp.enums.UserStatus;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -42,5 +41,8 @@ public class User {
     )
     private Set<Role> roles;
 
-    private String role;
+    private Integer shop_id;
+
+    private String phone_number;
+    private String address;
 }

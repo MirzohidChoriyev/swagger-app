@@ -15,7 +15,7 @@ public interface NewsRepository extends JpaRepository<News, Integer> {
     @Query(value = "select * from news a order by a.id desc", nativeQuery = true)
     List<News> findAllNativeQuery();
 
-    @Query(value = "select b.*, a.fullname from users a, news b where a.id = b.sender_id", nativeQuery = true)
+    @Query(value = "select b.*, a.fullname from users a, news b where a.id =:b.sender_id", nativeQuery = true)
     List<News> findByUsersNewsJoin();
 
     @Query(value = "select * from news a where a.id = :id", nativeQuery = true)
