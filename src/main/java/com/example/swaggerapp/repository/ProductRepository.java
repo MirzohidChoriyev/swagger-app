@@ -4,7 +4,6 @@ import com.example.swaggerapp.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -21,4 +20,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = "select * from product a where a.count_active = 'P' order by a.id asc", nativeQuery = true)
     List<Product> getNeedAllByProducts();
+
+    @Query(value = "select all_products_count()", nativeQuery = true)
+    Integer all_products_count();
 }

@@ -49,4 +49,9 @@ public class ProductController {
     public void updateNoteChar(){
         productService.updateNoteChar();
     }
+
+    @GetMapping("/getByProductsCount")
+    public Integer getByProductsCount(){
+        return productService.getByProductsCount();
+    }
 }

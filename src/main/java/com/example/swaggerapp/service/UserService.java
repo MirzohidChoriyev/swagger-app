@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,8 +28,8 @@ public class UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setFullname(userDto.getFullname());
-        user.setRoles(userDto.getRoles());
         user.setStatus(UserStatus.valueOf("ACTIVE"));
+        user.setRoles(userDto.getRoles());
         user.setShop_id(userDto.getShop_id());
         userRepository.save(user);
         return new ApiResponse("Save user", true, user);
@@ -93,5 +94,14 @@ public class UserService {
         user.setUsername(userDto.getUsername());
         userRepository.save(user);
         return new ApiResponse("Edit user", true, user);
+    }
+
+    public Integer users_count(){
+        return userRepository.all_users_count();
+    }
+
+    public ApiResponse getByUsers() {
+        List<User> users = userRepository.findAll();
+        return new ApiResponse("Get users", true, users);
     }
 }

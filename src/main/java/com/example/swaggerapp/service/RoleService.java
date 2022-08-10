@@ -17,8 +17,6 @@ public class RoleService {
         int len_role = roleRepository.findAll().size();
         Role role = new Role();
         role.setName(roleDto.getName());
-        role.setRole_id(len_role + 1);
-        role.setRole_category("role_category");
         roleRepository.save(role);
         return new ApiResponse("Save role", true, role);
     }

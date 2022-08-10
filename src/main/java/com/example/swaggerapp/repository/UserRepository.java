@@ -22,4 +22,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "select u.id from users u where u.username = :username", nativeQuery = true)
     String getByIdNative(String username);
+
+    @Query(value = "select all_users_count()", nativeQuery = true)
+    Integer all_users_count();
 }

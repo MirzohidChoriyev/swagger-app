@@ -7,6 +7,8 @@ import com.example.swaggerapp.utils.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(Paths.return_path)
 @RestController
 @RequestMapping("/api/menu")
@@ -15,7 +17,7 @@ public class MenuController {
     MenuService menuService;
 
     @PostMapping("/save")
-    public ApiResponse save(@RequestBody Menu menuDto){
+    public ApiResponse save(@RequestBody List<Menu> menuDto){
         return menuService.save(menuDto);
     }
 

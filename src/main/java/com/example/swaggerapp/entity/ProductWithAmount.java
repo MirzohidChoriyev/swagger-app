@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,16 +24,11 @@ public class ProductWithAmount {
 
     private int amount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Transfer transfer;
+    private Integer transfer_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Sale sale;
+    private Integer sale_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Reject reject;
+    private Integer reject_id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Product product;
+    private Integer product_id;
 }

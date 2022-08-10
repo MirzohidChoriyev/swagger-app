@@ -5,12 +5,12 @@ import com.example.swaggerapp.security.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
 
 @Configuration
 @EnableWebSecurity
@@ -84,7 +84,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/news/edit_seen/*").permitAll()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers("/api/employee/all").permitAll()
-                .antMatchers("/api/category/all").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/api/category/all").permitAll()
                 .antMatchers("/api/users/register").permitAll()
                 .antMatchers("/api/users/edit/*").permitAll()
                 .antMatchers("/api/users/delete/*").permitAll()
@@ -98,8 +98,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/salaries/save").permitAll()
                 .antMatchers("/api/month/add").permitAll()
                 .antMatchers("/api/salaries/getsalary/*").permitAll()
+                .antMatchers("/api/users/getByUserCount").permitAll()
+                .antMatchers("/api/users/getUsers").permitAll()
+                .antMatchers("/api/product/getByProductsCount").permitAll()
+                .antMatchers("/api/userImage/save/*").permitAll()
+                .antMatchers("/api/userImage/readImage/*").permitAll()
+                .antMatchers("/api/userImage/readImageHashId/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
     }
 }
+
+

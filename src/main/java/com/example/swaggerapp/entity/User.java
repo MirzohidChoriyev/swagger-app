@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -29,6 +30,8 @@ public class User {
     private double fix_salary;
 
     private String work_place;
+
+    private Date created_date = new Date();
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;

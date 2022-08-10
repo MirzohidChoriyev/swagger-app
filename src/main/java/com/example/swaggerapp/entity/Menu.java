@@ -17,9 +17,12 @@ public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    private Integer rownum;
+    private String type;
     private String name;
-    private String icon_name;
-    private String path_name;
-    private String comment;
+    private String key;
+    private String icon;
+    private String route;
+    private String component;
+    private String role;
 }

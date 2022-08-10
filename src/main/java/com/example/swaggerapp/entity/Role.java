@@ -17,10 +17,4 @@ public class Role implements Serializable {
     @Id
     @NotNull
     private String name;
-
-    @Column(name = "role_id", nullable = false, unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer role_id;
-
-    private String role_category;
 }

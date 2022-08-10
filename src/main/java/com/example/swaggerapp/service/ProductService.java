@@ -27,10 +27,10 @@ public class ProductService {
         Product product = new Product();
         product.setName(productDto.getName());
         product.setActive(productDto.isActive());
-        product.setCategory(categoryRepository.findByCategory(productDto.getCategory_id()));
         product.setIncomePrice(productDto.getIncomePrice());
         product.setCount(productDto.getCount());
         product.setCount_active(productDto.getCount_active());
+        product.setCreatedDate(new Date());
         product.setSalePrice(productDto.getSalePrice());
         product.setCount_note(productDto.getCount_note());
         product.setDescription(productDto.getDescription());
@@ -41,10 +41,6 @@ public class ProductService {
         productWithAmount.setPrice(productDto.getSalePrice());
         productWithAmount.setCreated_date(new Date());
         productWithAmount.setExpireDate(new Date());
-
-        product.setProductWithAmount(productWithAmount);
-        productWithAmount.setProduct(product);
-
         productRepository.save(product);
         productWithRepository.save(productWithAmount);
         return new ApiResponse("Save product", true, product);
@@ -100,5 +96,9 @@ public class ProductService {
                 productRepository.save(product1);
             }
         }
+    }
+
+    public Integer getByProductsCount(){
+        return productRepository.all_products_count();
     }
 }

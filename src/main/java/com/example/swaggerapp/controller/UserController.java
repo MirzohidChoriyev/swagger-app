@@ -4,6 +4,8 @@ import com.example.swaggerapp.entity.User;
 import com.example.swaggerapp.payload.ApiResponse;
 import com.example.swaggerapp.service.UserService;
 import com.example.swaggerapp.utils.Paths;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(Paths.return_path)
@@ -73,5 +75,15 @@ public class UserController {
     @GetMapping("/existByUsername/{username}")
     public Boolean getExistUsername(@PathVariable String username){
         return userService.existUsername(username);
+    }
+
+    @GetMapping("/getByUserCount")
+    public Integer getByUserCount(){
+        return userService.users_count();
+    }
+
+    @GetMapping("/getUsers")
+    public ApiResponse getByUsers(){
+        return userService.getByUsers();
     }
 }

@@ -27,9 +27,9 @@ public class ProductWithService {
     public ApiResponse save(ProductWithDto productWithDto) {
         ProductWithAmount product = new ProductWithAmount();
         product.setAmount(productWithDto.getAmount());
-        product.setReject(rejectRepository.findByRejectId(productWithDto.getReject_id()));
+        product.setReject_id(productWithDto.getReject_id());
         product.setPrice(productWithDto.getPrice());
-        product.setSale(saleRepository.saleFindBySale(productWithDto.getSale_id()));
+        product.setSale_id(productWithDto.getSale_id());
 
         productWithRepository.save(product);
         return new ApiResponse("Save Product", true, product);
