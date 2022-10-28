@@ -4,7 +4,9 @@ import com.example.swaggerapp.entity.Month;
 import com.example.swaggerapp.payload.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.util.resources.LocaleData;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,11 +21,17 @@ public class MonthService {
     public ApiResponse save(){
         List<Month> monthList1 = monthRepository.findAll();
         List<Month> monthList = new ArrayList<>();
+        int year = LocalDate.now().getYear();
+        LocalDate localDate = LocalDate.of(year, 1, 1);
+
         if(monthList1.size() <= 12){
-            for (int i = 0; i < 13; i++) {
-                Month month = new Month();
-                month.setMonth_number(i);
-                monthList.add(month);
+            while (localDate.getYear() == year){
+                java.time.Month month = localDate.getMonth();
+                Month month1 = new Month();
+                month1.setMonth_number(month.getValue());
+                month1.setName(month.name());
+                monthList.add(month1);
+                localDate = localDate.plusMonths(1);
             }
             monthRepository.saveAll(monthList);
             return new ApiResponse("Ma'lumotlar qo'shildi", true, monthList);

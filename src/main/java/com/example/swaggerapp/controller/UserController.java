@@ -4,8 +4,6 @@ import com.example.swaggerapp.entity.User;
 import com.example.swaggerapp.payload.ApiResponse;
 import com.example.swaggerapp.service.UserService;
 import com.example.swaggerapp.utils.Paths;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(Paths.return_path)

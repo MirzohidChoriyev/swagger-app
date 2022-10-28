@@ -2,17 +2,20 @@ package com.example.swaggerapp.service;
 
 import com.example.swaggerapp.entity.UserImage;
 import com.example.swaggerapp.enums.FileStatus;
+import com.example.swaggerapp.payload.ApiResponse;
+import com.example.swaggerapp.payload.UserImageNQ;
 import com.example.swaggerapp.repository.UserImageRepo;
 import org.hashids.Hashids;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.util.List;
 
 @Service
 public class UserImageService {
@@ -59,6 +62,7 @@ public class UserImageService {
             e.printStackTrace();
         }
 
+        userImageRepo.update_user_image(userId);
         return ResponseEntity.ok(userImage);
     }
 
@@ -73,7 +77,29 @@ public class UserImageService {
         return ext;
     }
 
+    @Transactional(readOnly = true)
     public UserImage findByHashId(String hashId) {
         return userImageRepo.findByHashId(hashId);
+    }
+
+    public ResponseEntity delete(String hashId){
+        UserImage userImage = userImageRepo.findByHashId(hashId);
+        File file = new File(String.format("%s/%s", this.uploadPathFolder, userImage.getUploadPath()));
+        if(file.delete()){
+            userImageRepo.delete(userImage);
+        }
+        return ResponseEntity.ok(userImage);
+    }
+
+    public void deleteByStatusDraft(){
+        List<UserImage> userImageList = userImageRepo.findAllByFileStatus(FileStatus.DRAFT);
+        userImageList.forEach(userImage -> {
+            delete(userImage.getHashId());
+        });
+    }
+
+    public ApiResponse getAll() {
+        List<UserImage> images = userImageRepo.findAllNQ();
+        return new ApiResponse("All images", true, images);
     }
 }

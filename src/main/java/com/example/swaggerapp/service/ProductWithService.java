@@ -1,8 +1,5 @@
 package com.example.swaggerapp.service;
 
-import com.example.swaggerapp.entity.ProductWithAmount;
-import com.example.swaggerapp.payload.ApiResponse;
-import com.example.swaggerapp.payload.ProductWithDto;
 import com.example.swaggerapp.repository.ProductRepository;
 import com.example.swaggerapp.repository.ProductWithRepository;
 import com.example.swaggerapp.repository.RejectRepository;
@@ -23,17 +20,6 @@ public class ProductWithService {
 
     @Autowired
     SaleRepository saleRepository;
-
-    public ApiResponse save(ProductWithDto productWithDto) {
-        ProductWithAmount product = new ProductWithAmount();
-        product.setAmount(productWithDto.getAmount());
-        product.setReject_id(productWithDto.getReject_id());
-        product.setPrice(productWithDto.getPrice());
-        product.setSale_id(productWithDto.getSale_id());
-
-        productWithRepository.save(product);
-        return new ApiResponse("Save Product", true, product);
-    }
 }
 
 

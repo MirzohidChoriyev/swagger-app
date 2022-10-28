@@ -3,6 +3,8 @@ package com.example.swaggerapp.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -20,15 +22,15 @@ public class Product {
     private double incomePrice;
     private double salePrice;
     private String valyuta;
-    private boolean active;
+    private boolean active = true;
 
+    @CreationTimestamp
     private Date createdDate;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Attachment photo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Category category;
+    private Integer category_id;
 
     private int count;
     private int count_note;

@@ -104,4 +104,8 @@ public class UserService {
         List<User> users = userRepository.findAll();
         return new ApiResponse("Get users", true, users);
     }
+
+    public Integer user_move_clients(){
+        return userRepository.userMoveClients();
+    }
 }

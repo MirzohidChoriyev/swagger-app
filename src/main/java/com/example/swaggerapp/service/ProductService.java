@@ -1,7 +1,6 @@
 package com.example.swaggerapp.service;
 
 import com.example.swaggerapp.entity.Product;
-import com.example.swaggerapp.entity.ProductWithAmount;
 import com.example.swaggerapp.payload.ApiResponse;
 import com.example.swaggerapp.payload.ProductDto;
 import com.example.swaggerapp.repository.CategoryRepository;
@@ -26,23 +25,16 @@ public class ProductService {
     public ApiResponse save(ProductDto productDto) {
         Product product = new Product();
         product.setName(productDto.getName());
-        product.setActive(productDto.isActive());
         product.setIncomePrice(productDto.getIncomePrice());
         product.setCount(productDto.getCount());
         product.setCount_active(productDto.getCount_active());
-        product.setCreatedDate(new Date());
         product.setSalePrice(productDto.getSalePrice());
         product.setCount_note(productDto.getCount_note());
         product.setDescription(productDto.getDescription());
         product.setValyuta(productDto.getValyuta());
+        product.setCategory_id(productDto.getCategory_id());
 
-        ProductWithAmount productWithAmount = new ProductWithAmount();
-        productWithAmount.setAmount(productDto.getCount());
-        productWithAmount.setPrice(productDto.getSalePrice());
-        productWithAmount.setCreated_date(new Date());
-        productWithAmount.setExpireDate(new Date());
         productRepository.save(product);
-        productWithRepository.save(productWithAmount);
         return new ApiResponse("Save product", true, product);
     }
 
@@ -52,7 +44,6 @@ public class ProductService {
         product.setIncomePrice(productDto.getIncomePrice());
         product.setCount(productDto.getCount());
         product.setCount_note(productDto.getCount_note());
-        product.setCategory(categoryRepository.findByCategory(productDto.getCategory_id()));
         product.setSalePrice(productDto.getSalePrice());
         product.setDescription(productDto.getDescription());
         product.setValyuta(productDto.getValyuta());

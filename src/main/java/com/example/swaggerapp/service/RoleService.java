@@ -25,5 +25,3 @@ public class RoleService {
         return roleRepository.existsByName(role_name);
     }
 }
-
-

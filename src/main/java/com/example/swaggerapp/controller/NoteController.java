@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(Paths.return_path)
 @RestController
 @RequestMapping("/api/notification")
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class NoteController {
     @Autowired
     NoteService noteService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER') or hasRole('ROLE_MANAGER')")
     @GetMapping("/getAll")
     public ApiResponse getAll(){
         return noteService.getAll();

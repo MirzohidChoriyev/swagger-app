@@ -22,7 +22,9 @@ public class BonusService {
         Bonus bonus = new Bonus();
         bonus.setBonusSum(bonusDto.getBonusSum());
         bonus.setDescription(bonusDto.getDescription());
-        bonus.setUser(user);
+        bonus.setUser_id(bonusDto.getUser_id());
+        bonus.setPercent(bonusDto.getPercent());
+        bonus.setCondition(bonusDto.getCondition());
         bonusRepository.save(bonus);
         return new ApiResponse("Save Bonus", true, bonus);
     }

@@ -11,4 +11,6 @@ public interface ProductWithRepository extends JpaRepository<ProductWithAmount, 
     @Query(value = "select * from product_with_amount a where a.id = :id", nativeQuery = true)
     ProductWithAmount findByProductWithId(Integer id);
 
+    @Query(value = "select products_move_products();", nativeQuery = true)
+    Integer products_move();
 }

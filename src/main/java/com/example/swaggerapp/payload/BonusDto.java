@@ -10,5 +10,7 @@ import lombok.NoArgsConstructor;
 public class BonusDto {
     private Integer user_id;
     private double bonusSum;
+    private double percent;
     private String description;
+    private String condition;
 }

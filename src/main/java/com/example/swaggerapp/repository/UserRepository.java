@@ -25,4 +25,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "select all_users_count()", nativeQuery = true)
     Integer all_users_count();
+
+    @Query(value = "select user_move_clients()", nativeQuery = true)
+    Integer userMoveClients();
 }

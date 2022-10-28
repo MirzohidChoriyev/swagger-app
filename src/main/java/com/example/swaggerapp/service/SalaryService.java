@@ -1,13 +1,12 @@
 package com.example.swaggerapp.service;
 
 import com.example.swaggerapp.entity.Salary;
+import com.example.swaggerapp.entity.Status;
 import com.example.swaggerapp.payload.ApiResponse;
 import com.example.swaggerapp.repository.SalaryRepository;
 import com.example.swaggerapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,8 +20,9 @@ public class SalaryService {
     public ApiResponse save(Salary salaryDto){
         Salary salary = new Salary();
         salary.setName(salaryDto.getName());
-        salary.setCreated_time(new Date());
-        salary.setStatus("A");
+        salary.setPercent(salaryDto.getPercent());
+        salary.setMonth_name(salaryDto.getMonth_name());
+        salary.setStatus(Status.valueOf("A"));
         salary.setValue(salaryDto.getValue());
         salary.setUser_id(salaryDto.getUser_id());
 

@@ -1,13 +1,8 @@
 package com.example.swaggerapp.payload;
 
-import com.example.swaggerapp.entity.Shop;
-import com.example.swaggerapp.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 
 @AllArgsConstructor
 @NoArgsConstructor

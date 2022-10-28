@@ -1,38 +1,33 @@
 package com.example.swaggerapp.entity;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-public class ProductWithAmount {
+@Table(name = "transactions")
+public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private double sale_all_price;
+    @NotNull
+    private Integer card_id;
 
-    private double income_all_price;
-
-    private String currency;
-
-    private int amount;
-
-    private Integer transfer_id;
-
-    private Integer sale_id;
-
-    private Integer reject_id;
-
-    private Integer product_id;
+    private String pay_purpose;
+    private Double value;
 
     @CreationTimestamp
-    private Date created_date;
+    private Timestamp transactionDate;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }

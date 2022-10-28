@@ -1,6 +1,7 @@
 package com.example.swaggerapp.controller;
 
 import com.example.swaggerapp.entity.UserImage;
+import com.example.swaggerapp.payload.ApiResponse;
 import com.example.swaggerapp.repository.UserImageRepo;
 import com.example.swaggerapp.service.UserImageService;
 import com.example.swaggerapp.utils.Paths;
@@ -30,7 +31,7 @@ public class UserImageController {
     private String uploadPathFolder;
 
     @PostMapping("/save/{userId}")
-    public ResponseEntity fileSave(@RequestParam("image") MultipartFile multipartFile, @PathVariable Integer userId){
+    public ResponseEntity fileSave(@RequestParam("image") MultipartFile multipartFile, @PathVariable Integer userId) {
         return ResponseEntity.ok(userImageService.save(multipartFile, userId));
     }
 
@@ -38,14 +39,24 @@ public class UserImageController {
     public ResponseEntity getFileRead(@PathVariable String hashId) throws MalformedURLException {
         UserImage fileStorage = userImageService.findByHashId(hashId);
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; fileName=\""+ URLEncoder.encode(fileStorage.getName()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; fileName=\"" + URLEncoder.encode(fileStorage.getName()))
                 .contentType(MediaType.parseMediaType(fileStorage.getContentType()))
                 .contentLength(fileStorage.getFileSize())
                 .body(new FileUrlResource(String.format("%s/%s", uploadPathFolder, fileStorage.getUploadPath())));
     }
 
     @GetMapping("/readImageHashId/{userId}")
-    public String readImageHashId(@PathVariable Integer userId){
+    public String readImageHashId(@PathVariable Integer userId) {
         return userImageRepo.findByUserIdNativeQuery(userId);
+    }
+
+    @DeleteMapping("/deleteFile/{hashId}")
+    public ResponseEntity deleteFile(@PathVariable String hashId) {
+        return ResponseEntity.ok(userImageService.delete(hashId));
+    }
+
+    @GetMapping("/allimage")
+    public ApiResponse allImage(){
+        return userImageService.getAll();
     }
 }

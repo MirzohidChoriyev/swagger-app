@@ -5,7 +5,6 @@ import com.example.swaggerapp.security.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -104,10 +103,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/userImage/save/*").permitAll()
                 .antMatchers("/api/userImage/readImage/*").permitAll()
                 .antMatchers("/api/userImage/readImageHashId/*").permitAll()
+                .antMatchers("/api/userImage/allimage").permitAll()
+                .antMatchers("/api/card/save").permitAll()
+                .antMatchers("/api/card/getByCard/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
     }
 }
-
-
